@@ -6,7 +6,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/kauziishere/gocron/sleepTimer"
+	"github.com/kauziishere/gocron/timer"
 	"github.com/rs/zerolog/log"
 )
 
@@ -64,7 +64,7 @@ func restartCron() {
 				timeArray := cmdArray[:5]
 				cmdToExec := cmdArray[5:]
 
-				sleepTimens := sleepTimer.GetSleepTime(timeArray)
+				sleepTimens := timer.GetSleepTime(timeArray)
 				log.Debug().Msgf("Sleep time: %f s\n", float64(sleepTimens)/1000000000.0)
 				time.Sleep(time.Duration(sleepTimens) * time.Nanosecond)
 
