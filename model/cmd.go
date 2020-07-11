@@ -5,16 +5,11 @@ import (
 	"os/exec"
 )
 
-const viPath = "/usr/bin/vi"
-
-func executeCommandWithArgs(args []string) error {
-	cmd := &exec.Cmd{
-		Path:   viPath,
-		Args:   args,
-		Stdin:  os.Stdin,
-		Stdout: os.Stdout,
-		Stderr: os.Stdout,
-	}
+func executeCommand(args []string) error {
+	cmd := exec.Command(args[0], args[1:]...)
+	cmd.Stdin = os.Stdin
+	cmd.Stderr = os.Stdout
+	cmd.Stdout = os.Stdout
 
 	err := cmd.Run()
 	if nil != err {

@@ -5,13 +5,21 @@ import (
 	"fmt"
 
 	"github.com/kauziishere/gocron/model"
+	"github.com/rs/zerolog"
 )
 
 func processFlags() int {
+	debug := flag.Bool("debug", false, "Allow Debug")
 	editFlagSet := flag.Bool("e", false, "Allow user to edit gocrontab")
 	restartFlagSet := flag.Bool("x", false, "Allow user to restart gocrontab")
 	readFlagSet := flag.Bool("r", false, "Allow user read only access to crontab")
 	flag.Parse()
+
+	zerolog.SetGlobalLevel(zerolog.InfoLevel)
+	if *debug {
+		zerolog.SetGlobalLevel(zerolog.DebugLevel)
+	}
+
 	if *editFlagSet {
 		return model.EditFlag
 	}
